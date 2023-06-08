@@ -2,13 +2,17 @@ import { ImageComponent } from './components/page/item/image.js';
 import { NoteComponent } from './components/page/item/note.js';
 import { TodoComponent } from './components/page/item/todo.js';
 import { VideoComponent } from './components/page/item/video.js';
-import { Composable, PageComponent } from './components/page/page.js';
+import {
+  Composable,
+  PageComponent,
+  PageItemComponent,
+} from './components/page/page.js';
 import { Component } from './components/component.js';
 
 class App {
   private readonly page: Component & Composable; //클래스 타입이 아니라 인터페이스 타입으로 지정하는 것이 좋음
   constructor(appRoot: HTMLElement) {
-    this.page = new PageComponent();
+    this.page = new PageComponent(PageItemComponent);
     this.page.attachTo(appRoot);
 
     const image = new ImageComponent(
