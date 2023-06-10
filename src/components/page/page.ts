@@ -1,4 +1,4 @@
-import { BaseComponent, Component } from '../component.js';
+import { BaseComponent, Component } from "../component.js";
 
 export interface Composable {
   addChild(child: Component): void;
@@ -24,14 +24,14 @@ export class PageItemComponent
               <button class="close">&times;</button>
             </div>
            </li>`);
-    const closeBtn = document.querySelector('.close')! as HTMLButtonElement;
+    const closeBtn = this.element.querySelector(".close")! as HTMLButtonElement;
     closeBtn.onclick = () => {
       this.closeListener && this.closeListener();
     };
   }
   addChild(child: Component) {
     const container = this.element.querySelector(
-      '.page-item__body'
+      ".page-item__body"
     )! as HTMLElement;
     child.attachTo(container);
   }
@@ -49,7 +49,7 @@ export class PageComponent
   addChild(section: Component) {
     const item = new this.pageItemConstructor();
     item.addChild(section);
-    item.attachTo(this.element, 'beforeend');
+    item.attachTo(this.element, "beforeend");
     item.setOnCloseListener(() => {
       item.removeFrom(this.element);
     });
