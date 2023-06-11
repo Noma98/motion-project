@@ -8,6 +8,7 @@ import {
   PageItemComponent,
 } from './components/page/page.js';
 import { Component } from './components/component.js';
+import { InputDialog } from './components/page/dialog/dialog.js';
 
 class App {
   private readonly page: Component & Composable; //클래스 타입이 아니라 인터페이스 타입으로 지정하는 것이 좋음
@@ -32,6 +33,19 @@ class App {
       'https://youtu.be/AedcYlARH8g'
     );
     this.page.addChild(video);
+
+    const imageBtn = document.querySelector('#new-image')! as HTMLButtonElement;
+    imageBtn.addEventListener('click', () => {
+      const dialog = new InputDialog();
+      dialog.setOnSubmitListener(() => {
+        //[TODO] 섹션을 만들어서 페이지에 추가
+        dialog.removeFrom(document.body);
+      });
+      dialog.setOnCloseListener(() => {
+        dialog.removeFrom(document.body);
+      });
+      dialog.attachTo(document.body);
+    });
   }
 }
 new App(document.querySelector('.document') as HTMLElement);
