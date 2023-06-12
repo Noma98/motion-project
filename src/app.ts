@@ -8,11 +8,15 @@ import {
   PageItemComponent,
 } from './components/page/page.js';
 import { Component } from './components/component.js';
-import { InputDialog } from './components/page/dialog/dialog.js';
+import {
+  InputDialog,
+  MediaData,
+  TextData,
+} from './components/page/dialog/dialog.js';
 import { MediaSectionInput } from './components/page/dialog/input/media-input.js';
 import { TextSectionInput } from './components/page/dialog/input/text-input.js';
 
-type InputComponentConstructor<T = MediaSectionInput | TextSectionInput> = {
+type InputComponentConstructor<T = (MediaData | TextData) & Component> = {
   new (): T;
 };
 class App {
@@ -43,7 +47,7 @@ class App {
     );
   }
 
-  private bindElementToDialog<T extends MediaSectionInput | TextSectionInput>(
+  private bindElementToDialog<T extends (MediaData | TextData) & Component>(
     selector: string,
     InputComponent: InputComponentConstructor<T>,
     makeSection: (input: T) => Component
