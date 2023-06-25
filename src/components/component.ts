@@ -2,8 +2,11 @@
 
 //api가 있다면 해당 클래스를 여기저기 전달하고 의사소통하기 보다는 interface를 쓰는 것이 좋음
 export interface Component {
+  //자기 자신을 제공된 부모 컨테이너에 추가하거나 제거
   attachTo(parent: HTMLElement, position?: InsertPosition): void;
   removeFrom(parent: HTMLElement): void;
+  //전달 받은 컴포넌트를 나 자신 안에다가 붙여주기
+  attach(component: Component, position?: InsertPosition): void;
 }
 
 export class BaseComponent<T extends HTMLElement> implements Component {
@@ -29,5 +32,8 @@ export class BaseComponent<T extends HTMLElement> implements Component {
       throw new Error('Parent mismatch!');
     }
     parent.removeChild(this.element);
+  }
+  attach(component: Component, position?: InsertPosition) {
+    component.attachTo(this.element, position);
   }
 }
